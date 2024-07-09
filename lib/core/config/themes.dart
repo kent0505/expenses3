@@ -7,11 +7,11 @@ final theme = ThemeData(
   primarySwatch: Colors.grey,
   fontFamily: 'SF',
   scaffoldBackgroundColor: AppColors.bg,
-  // textSelectionTheme: TextSelectionThemeData(
-  //   cursorColor: AppColors.white50,
-  //   selectionColor: AppColors.white50,
-  //   selectionHandleColor: AppColors.white50,
-  // ),
+  textSelectionTheme: const TextSelectionThemeData(
+    cursorColor: AppColors.main,
+    selectionColor: AppColors.main,
+    selectionHandleColor: AppColors.main,
+  ),
   // colorScheme: ColorScheme.fromSwatch(
   //   accentColor: AppColors.activeNavBar,
   // ),
