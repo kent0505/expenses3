@@ -1,13 +1,16 @@
 import 'package:go_router/go_router.dart';
 
 import '../../features/home/pages/home_page.dart';
+import '../../features/money/models/money.dart';
+import '../../features/money/pages/add_money_page.dart';
+import '../../features/money/pages/edit_money_page.dart';
 import '../../features/splash/greetings_page.dart';
 import '../../features/splash/name_page.dart';
 import '../../features/splash/onboarding_page.dart';
 import '../../features/splash/splash_page.dart';
 
 final routerConfig = GoRouter(
-  initialLocation: '/name',
+  initialLocation: '/',
   routes: [
     GoRoute(
       path: '/',
@@ -28,6 +31,18 @@ final routerConfig = GoRouter(
     GoRoute(
       path: '/home',
       builder: (context, state) => const HomePage(),
+    ),
+    GoRoute(
+      path: '/addmoney',
+      builder: (context, state) => AddMoneyPage(
+        profit: state.extra as bool,
+      ),
+    ),
+    GoRoute(
+      path: '/editmoney',
+      builder: (context, state) => EditMoneyPage(
+        money: state.extra as Money,
+      ),
     ),
   ],
 );

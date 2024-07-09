@@ -20,3 +20,7 @@ Future<void> saveUser(String name) async {
   prefs.setBool('onboarding', false);
   await getData();
 }
+
+int getCurrentTimestamp() {
+  return DateTime.now().millisecondsSinceEpoch ~/ 1000;
+}
