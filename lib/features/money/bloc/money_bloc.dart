@@ -1,5 +1,6 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../../core/utils.dart';
 import '../models/money.dart';
 import '../service/money_service.dart';
 
@@ -14,8 +15,10 @@ class MoneyBloc extends Bloc<MoneyEvent, MoneyState> {
     on<GetMoneysEvent>((event, emit) async {
       if (_service.moneys.isEmpty) {
         _moneys = await _service.getMoneys();
+        mymoneys = _moneys;
         emit(MoneysLoadedState(moneys: _moneys));
       } else {
+        mymoneys = _moneys;
         emit(MoneysLoadedState(moneys: _moneys));
       }
     });
@@ -23,6 +26,7 @@ class MoneyBloc extends Bloc<MoneyEvent, MoneyState> {
     on<AddMoneyEvent>((event, emit) async {
       _service.moneys.add(event.money);
       _moneys = await _service.updateMoneys();
+      mymoneys = _moneys;
       emit(MoneysLoadedState(moneys: _moneys));
     });
 
@@ -37,12 +41,14 @@ class MoneyBloc extends Bloc<MoneyEvent, MoneyState> {
         }
       }
       _moneys = await _service.updateMoneys();
+      mymoneys = _moneys;
       emit(MoneysLoadedState(moneys: _moneys));
     });
 
     on<DeleteMoneyEvent>((event, emit) async {
       _service.moneys.removeWhere((element) => element.id == event.id);
       _moneys = await _service.updateMoneys();
+      mymoneys = _moneys;
       emit(MoneysLoadedState(moneys: _moneys));
     });
   }

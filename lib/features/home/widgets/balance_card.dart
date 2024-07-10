@@ -32,7 +32,7 @@ class BalanceCard extends StatelessWidget {
           Row(
             children: [
               Text(
-                '$myincome',
+                '$myprofits',
                 style: const TextStyle(
                   color: AppColors.main,
                   fontSize: 20,
