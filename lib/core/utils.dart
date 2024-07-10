@@ -111,3 +111,20 @@ double getHeight(int a, int b) {
   if (a > b) return 82;
   return (a / b) * 32 + (a / b) * 50;
 }
+
+Future<void> checkAchievements() async {
+  final prefs = await SharedPreferences.getInstance();
+  List<Money> oneMonthMoneys = [];
+  int secs = getCurrentTimestamp() - 2629744;
+  for (Money money in mymoneys) {
+    if (money.id > secs) oneMonthMoneys.add(money);
+  }
+  int total = 0;
+  for (Money money in oneMonthMoneys) {
+    if (!money.profit) total = total + money.amount;
+  }
+  log('Total = $total');
+  if (total >= 1000) prefs.setBool('achieve1', true);
+  if (total >= 5000) prefs.setBool('achieve2', true);
+  await getData();
+}

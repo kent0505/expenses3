@@ -1,4 +1,7 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:cached_network_image/cached_network_image.dart';
+import 'package:go_router/go_router.dart';
 
 import '../../../core/config/app_colors.dart';
 import '../models/newsmodel.dart';
@@ -46,34 +49,58 @@ class _NewsCard extends StatelessWidget {
         children: [
           Container(
             height: 140,
-            padding: const EdgeInsets.symmetric(horizontal: 10),
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(12),
-              image: const DecorationImage(
-                image: AssetImage('assets/news1.png'),
-                fit: BoxFit.cover,
-              ),
             ),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
+            child: Stack(
               children: [
-                const SizedBox(height: 8),
-                Text(
-                  newsmodel.name,
-                  style: const TextStyle(
-                    color: Colors.white,
-                    fontSize: 18,
-                    fontWeight: FontWeight.w400,
-                    fontFamily: 'PoppinsRegular',
+                SizedBox(
+                  height: 140,
+                  width: double.infinity,
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.circular(12),
+                    child: CachedNetworkImage(
+                      imageUrl: newsmodel.url,
+                      fit: BoxFit.fitWidth,
+                    ),
                   ),
                 ),
-                Text(
-                  newsmodel.desc,
-                  style: const TextStyle(
-                    color: Colors.white,
-                    fontSize: 14,
-                    fontWeight: FontWeight.w400,
-                    fontFamily: 'PoppinsRegular',
+                CupertinoButton(
+                  onPressed: () {
+                    context.push('/news', extra: newsmodel);
+                  },
+                  padding: EdgeInsets.zero,
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 8),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        const SizedBox(height: 8),
+                        Text(
+                          newsmodel.name,
+                          maxLines: 2,
+                          overflow: TextOverflow.ellipsis,
+                          style: const TextStyle(
+                            color: Colors.white,
+                            fontSize: 18,
+                            fontWeight: FontWeight.w400,
+                            fontFamily: 'PoppinsRegular',
+                          ),
+                        ),
+                        const SizedBox(height: 8),
+                        Text(
+                          newsmodel.desc,
+                          maxLines: 3,
+                          overflow: TextOverflow.ellipsis,
+                          style: const TextStyle(
+                            color: Colors.white,
+                            fontSize: 14,
+                            fontWeight: FontWeight.w400,
+                            fontFamily: 'PoppinsRegular',
+                          ),
+                        ),
+                      ],
+                    ),
                   ),
                 ),
               ],

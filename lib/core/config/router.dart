@@ -1,7 +1,9 @@
-import 'package:expense_test/features/finance/pages/finance_test_page.dart';
 import 'package:go_router/go_router.dart';
 
+import '../../features/finance/pages/finance_test_page.dart';
+import '../../features/home/models/newsmodel.dart';
 import '../../features/home/pages/home_page.dart';
+import '../../features/home/pages/news_page.dart';
 import '../../features/money/models/money.dart';
 import '../../features/money/pages/add_money_page.dart';
 import '../../features/money/pages/edit_money_page.dart';
@@ -36,6 +38,12 @@ final routerConfig = GoRouter(
     GoRoute(
       path: '/home',
       builder: (context, state) => const HomePage(),
+    ),
+    GoRoute(
+      path: '/news',
+      builder: (context, state) => NewsPage(
+        newsmodel: state.extra as Newsmodel,
+      ),
     ),
     GoRoute(
       path: '/addmoney',

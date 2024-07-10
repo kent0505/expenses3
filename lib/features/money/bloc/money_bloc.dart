@@ -16,6 +16,7 @@ class MoneyBloc extends Bloc<MoneyEvent, MoneyState> {
       if (_service.moneys.isEmpty) {
         _moneys = await _service.getMoneys();
         mymoneys = _moneys;
+        await checkAchievements();
         emit(MoneysLoadedState(moneys: _moneys));
       } else {
         mymoneys = _moneys;
@@ -27,6 +28,7 @@ class MoneyBloc extends Bloc<MoneyEvent, MoneyState> {
       _service.moneys.add(event.money);
       _moneys = await _service.updateMoneys();
       mymoneys = _moneys;
+      await checkAchievements();
       emit(MoneysLoadedState(moneys: _moneys));
     });
 
