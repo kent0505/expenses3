@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../../core/config/app_colors.dart';
+import '../../../core/utils.dart';
 
 class AchievesList extends StatelessWidget {
   const AchievesList({super.key});
@@ -16,22 +17,22 @@ class AchievesList extends StatelessWidget {
         thickness: 5,
         child: ListView(
           // padding: const EdgeInsets.symmetric(horizontal: 24),
-          children: const [
-            SizedBox(height: 16),
+          children: [
+            const SizedBox(height: 16),
             _AchieveCard(
               title: 'Spend \$1,000 in a month',
               asset: 'achieve1',
-              active: true,
+              active: achieve1,
             ),
             _AchieveCard(
               title: 'Spend \$5,000 in a month',
               asset: 'achieve2',
-              active: false,
+              active: achieve2,
             ),
             _AchieveCard(
               title: 'Invest \$3,000 in education',
               asset: 'achieve3',
-              active: false,
+              active: achieve3,
             ),
           ],
         ),

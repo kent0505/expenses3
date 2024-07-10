@@ -8,6 +8,9 @@ bool onboarding = true;
 String myname = '';
 int myprofits = 0;
 int mylosses = 0;
+bool achieve1 = false;
+bool achieve2 = false;
+bool achieve3 = false;
 List<Money> mymoneys = [];
 
 Future<void> getData() async {
@@ -17,6 +20,9 @@ Future<void> getData() async {
   myname = prefs.getString('myname') ?? 'John';
   myprofits = prefs.getInt('myprofits') ?? 0;
   mylosses = prefs.getInt('mylosses') ?? 0;
+  achieve1 = prefs.getBool('achieve1') ?? false;
+  achieve2 = prefs.getBool('achieve2') ?? false;
+  achieve3 = prefs.getBool('achieve3') ?? false;
 }
 
 Future<void> saveUser(String name) async {
@@ -47,6 +53,17 @@ int w5Profit = 0;
 int w6Profit = 0;
 int w7Profit = 0;
 
+List<Money> getLastWeekMoneys() {
+  List<Money> sortedmoneys = [];
+  int last = getCurrentTimestamp() - 604800;
+  for (Money money in mymoneys) {
+    if (money.id > last) {
+      sortedmoneys.add(money);
+    }
+  }
+  return sortedmoneys;
+}
+
 void calculateExpenses() {
   w1Loss = 0;
   w2Loss = 0;
@@ -64,7 +81,7 @@ void calculateExpenses() {
   w6Profit = 0;
   w7Profit = 0;
 
-  for (Money money in mymoneys) {
+  for (Money money in getLastWeekMoneys()) {
     log(money.id.toString());
     DateTime date = DateTime.fromMillisecondsSinceEpoch(money.id * 1000);
 
@@ -86,25 +103,11 @@ void calculateExpenses() {
       if (date.weekday == 7) w7Loss = w7Loss + money.amount;
     }
   }
-  print(w1Loss);
-  print(w2Loss);
-  print(w3Loss);
-  print(w4Loss);
-  print(w5Loss);
-  print(w6Loss);
-  print(w7Loss);
-  print(w1Profit);
-  print(w2Profit);
-  print(w3Profit);
-  print(w4Profit);
-  print(w5Profit);
-  print(w6Profit);
-  print(w7Profit);
 }
 
 double getHeight(int a, int b) {
   if (a == 0) return 5;
   if (b == 0) return 5;
-  if (a > b) return 100 + 50;
-  return (a / b) * 100 + (a / b) * 50;
+  if (a > b) return 82;
+  return (a / b) * 32 + (a / b) * 50;
 }

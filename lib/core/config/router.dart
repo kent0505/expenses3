@@ -1,3 +1,4 @@
+import 'package:expense_test/features/finance/pages/finance_test_page.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../features/home/pages/home_page.dart';
@@ -12,6 +13,10 @@ import '../../features/splash/splash_page.dart';
 final routerConfig = GoRouter(
   initialLocation: '/',
   routes: [
+    GoRoute(
+      path: '/test',
+      builder: (context, state) => const FinanceTestPage(),
+    ),
     GoRoute(
       path: '/',
       builder: (context, state) => const SplashPage(),
