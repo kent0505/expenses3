@@ -1,15 +1,17 @@
-import 'package:expense_test/core/config/app_colors.dart';
-import 'package:expense_test/features/home/widgets/add_button.dart';
-import 'package:expense_test/features/home/widgets/money_card.dart';
-import 'package:expense_test/features/money/bloc/money_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../finance/pages/finance_page.dart';
+import '../../money/bloc/money_bloc.dart';
+import '../widgets/achieves_list.dart';
+import '../widgets/money_list.dart';
 import '../bloc/home_bloc.dart';
+import '../widgets/add_button.dart';
 import '../widgets/balance_card.dart';
 import '../widgets/hello_text.dart';
 import '../widgets/nav_bar.dart';
+import '../widgets/news_list.dart';
+import '../widgets/tab_button.dart';
 import 'settings_page.dart';
 
 class HomePage extends StatelessWidget {
@@ -46,6 +48,16 @@ class _Home extends StatefulWidget {
 }
 
 class _HomeState extends State<_Home> {
+  int tabIndex = 0;
+
+  void onTabPressed(String title) {
+    setState(() {
+      if (title == 'History') tabIndex = 0;
+      if (title == 'News') tabIndex = 1;
+      if (title == 'Achieves') tabIndex = 2;
+    });
+  }
+
   @override
   void initState() {
     super.initState();
@@ -70,35 +82,34 @@ class _HomeState extends State<_Home> {
             SizedBox(width: 24),
           ],
         ),
-        const SizedBox(height: 10),
-        BlocBuilder<MoneyBloc, MoneyState>(
-          builder: (context, state) {
-            if (state is MoneysLoadedState) {
-              return Expanded(
-                child: RawScrollbar(
-                  padding: const EdgeInsets.only(right: 7),
-                  thumbColor: AppColors.main50,
-                  radius: const Radius.circular(12),
-                  thumbVisibility: true,
-                  thickness: 5,
-                  child: ListView(
-                    padding: const EdgeInsets.symmetric(horizontal: 24),
-                    children: [
-                      ...List.generate(
-                        state.moneys.length,
-                        (index) {
-                          return MoneyCard(money: state.moneys[index]);
-                        },
-                      ),
-                    ],
-                  ),
-                ),
-              );
-            }
-
-            return Container();
-          },
+        const SizedBox(height: 30),
+        Row(
+          children: [
+            const SizedBox(width: 24),
+            TabButton(
+              title: 'History',
+              active: tabIndex == 0,
+              onTap: onTabPressed,
+            ),
+            const SizedBox(width: 24),
+            TabButton(
+              title: 'News',
+              active: tabIndex == 1,
+              onTap: onTabPressed,
+            ),
+            const SizedBox(width: 24),
+            TabButton(
+              title: 'Achieves',
+              active: tabIndex == 2,
+              onTap: onTabPressed,
+            ),
+            const SizedBox(width: 24),
+          ],
         ),
+        const SizedBox(height: 10),
+        if (tabIndex == 0) const MoneyList(),
+        if (tabIndex == 1) const NewsList(),
+        if (tabIndex == 2) const AchievesList(),
         SizedBox(height: 63 + MediaQuery.of(context).viewPadding.bottom),
       ],
     );

@@ -1,13 +1,51 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../../core/config/app_colors.dart';
 import '../../money/models/money.dart';
+import '../../money/bloc/money_bloc.dart';
 
-class MoneyCard extends StatelessWidget {
-  const MoneyCard({super.key, required this.money});
+class MoneyList extends StatelessWidget {
+  const MoneyList({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return BlocBuilder<MoneyBloc, MoneyState>(
+      builder: (context, state) {
+        if (state is MoneysLoadedState) {
+          return Expanded(
+            child: RawScrollbar(
+              padding: const EdgeInsets.only(right: 7),
+              thumbColor: AppColors.main50,
+              radius: const Radius.circular(12),
+              thumbVisibility: true,
+              thickness: 5,
+              child: ListView(
+                padding: const EdgeInsets.symmetric(horizontal: 24),
+                children: [
+                  ...List.generate(
+                    state.moneys.length,
+                    (index) {
+                      return _MoneyCard(money: state.moneys[index]);
+                    },
+                  ),
+                ],
+              ),
+            ),
+          );
+        }
+
+        return Container();
+      },
+    );
+  }
+}
+
+class _MoneyCard extends StatelessWidget {
+  const _MoneyCard({required this.money});
 
   final Money money;
 
