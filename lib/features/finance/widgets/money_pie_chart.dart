@@ -2,37 +2,18 @@ import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 
 import '../../../core/config/app_colors.dart';
-import '../../../core/utils.dart';
-import '../../money/models/money.dart';
 
-class MoneyPieChart extends StatefulWidget {
-  const MoneyPieChart({super.key});
+class MoneyPieChart extends StatelessWidget {
+  const MoneyPieChart({
+    super.key,
+    required this.profit,
+    required this.loss,
+    required this.total,
+  });
 
-  @override
-  State<MoneyPieChart> createState() => _MoneyPieChartState();
-}
-
-class _MoneyPieChartState extends State<MoneyPieChart> {
-  int profit = 0;
-  int loss = 0;
-  int total = 0;
-
-  void getMyMoneys() {
-    for (Money money in mymoneys) {
-      if (money.profit) {
-        profit = profit + money.amount;
-      } else {
-        loss = loss + money.amount;
-      }
-    }
-    total = profit + loss;
-  }
-
-  @override
-  void initState() {
-    super.initState();
-    getMyMoneys();
-  }
+  final int profit;
+  final int loss;
+  final int total;
 
   @override
   Widget build(BuildContext context) {
