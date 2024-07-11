@@ -11,6 +11,9 @@ import '../../features/splash/greetings_page.dart';
 import '../../features/splash/name_page.dart';
 import '../../features/splash/onboarding_page.dart';
 import '../../features/splash/splash_page.dart';
+import '../../features/target/models/target.dart';
+import '../../features/target/pages/target_add_page.dart';
+import '../../features/target/pages/target_edit_page.dart';
 
 final routerConfig = GoRouter(
   initialLocation: '/',
@@ -55,6 +58,16 @@ final routerConfig = GoRouter(
       path: '/editmoney',
       builder: (context, state) => EditMoneyPage(
         money: state.extra as Money,
+      ),
+    ),
+    GoRoute(
+      path: '/addtarget',
+      builder: (context, state) => const TargetAddPage(),
+    ),
+    GoRoute(
+      path: '/edittarget',
+      builder: (context, state) => TargetEditPage(
+        target: state.extra as Target,
       ),
     ),
   ],

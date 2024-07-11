@@ -1,54 +1,52 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../core/config/app_colors.dart';
-import '../../../core/utils.dart';
-import '../../money/bloc/money_bloc.dart';
 
-class AchievesList extends StatelessWidget {
-  const AchievesList({super.key});
+// class AchievesList extends StatelessWidget {
+//   const AchievesList({super.key});
 
-  @override
-  Widget build(BuildContext context) {
-    return BlocBuilder<MoneyBloc, MoneyState>(
-      builder: (context, state) {
-        return Expanded(
-          child: RawScrollbar(
-            padding: const EdgeInsets.only(right: 7),
-            thumbColor: AppColors.main50,
-            radius: const Radius.circular(12),
-            thumbVisibility: true,
-            thickness: 5,
-            child: ListView(
-              // padding: const EdgeInsets.symmetric(horizontal: 24),
-              children: [
-                const SizedBox(height: 16),
-                _AchieveCard(
-                  title: 'Spend \$1,000 in a month',
-                  asset: 'achieve1',
-                  active: achieve1,
-                ),
-                _AchieveCard(
-                  title: 'Spend \$5,000 in a month',
-                  asset: 'achieve2',
-                  active: achieve2,
-                ),
-                _AchieveCard(
-                  title: 'Invest \$3,000 in education',
-                  asset: 'achieve3',
-                  active: achieve3,
-                ),
-              ],
-            ),
-          ),
-        );
-      },
-    );
-  }
-}
+//   @override
+//   Widget build(BuildContext context) {
+//     return BlocBuilder<MoneyBloc, MoneyState>(
+//       builder: (context, state) {
+//         return Expanded(
+//           child: RawScrollbar(
+//             padding: const EdgeInsets.only(right: 7),
+//             thumbColor: AppColors.main50,
+//             radius: const Radius.circular(12),
+//             thumbVisibility: true,
+//             thickness: 5,
+//             child: ListView(
+//               // padding: const EdgeInsets.symmetric(horizontal: 24),
+//               children: [
+//                 const SizedBox(height: 16),
+//                 AchieveCard(
+//                   title: 'Spend \$1,000 in a month',
+//                   asset: 'achieve1',
+//                   active: achieve1,
+//                 ),
+//                 AchieveCard(
+//                   title: 'Spend \$5,000 in a month',
+//                   asset: 'achieve2',
+//                   active: achieve2,
+//                 ),
+//                 AchieveCard(
+//                   title: 'Invest \$3,000 in education',
+//                   asset: 'achieve3',
+//                   active: achieve3,
+//                 ),
+//               ],
+//             ),
+//           ),
+//         );
+//       },
+//     );
+//   }
+// }
 
-class _AchieveCard extends StatelessWidget {
-  const _AchieveCard({
+class AchieveCard extends StatelessWidget {
+  const AchieveCard({
+    super.key,
     required this.title,
     required this.asset,
     required this.active,

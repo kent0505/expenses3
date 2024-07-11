@@ -6,8 +6,6 @@ import '../features/money/models/money.dart';
 
 bool onboarding = true;
 String myname = '';
-int myprofits = 0;
-int mylosses = 0;
 bool achieve1 = false;
 bool achieve2 = false;
 bool achieve3 = false;
@@ -18,8 +16,6 @@ Future<void> getData() async {
   // await prefs.remove('onboarding');
   onboarding = prefs.getBool('onboarding') ?? true;
   myname = prefs.getString('myname') ?? 'John';
-  myprofits = prefs.getInt('myprofits') ?? 0;
-  mylosses = prefs.getInt('mylosses') ?? 0;
   achieve1 = prefs.getBool('achieve1') ?? false;
   achieve2 = prefs.getBool('achieve2') ?? false;
   achieve3 = prefs.getBool('achieve3') ?? false;
@@ -30,6 +26,19 @@ Future<void> saveUser(String name) async {
   prefs.setString('myname', name);
   prefs.setBool('onboarding', false);
   await getData();
+}
+
+int getBalance() {
+  int prifit = 0;
+  int loss = 0;
+  for (Money money in mymoneys) {
+    if (money.profit) {
+      prifit = prifit + money.amount;
+    } else {
+      loss = loss + money.amount;
+    }
+  }
+  return prifit - loss;
 }
 
 int getCurrentTimestamp() {
