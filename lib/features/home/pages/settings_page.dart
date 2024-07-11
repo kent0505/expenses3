@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
 import '../../../core/utils.dart';
 import '../../../core/widgets/page_title.dart';
@@ -17,12 +18,18 @@ class SettingsPage extends StatelessWidget {
           const PageTitle('Settings'),
           const SizedBox(height: 34),
           Image.asset('assets/user.png', height: 154),
-          const SizedBox(height: 8),
-          Text(
-            myname.isNotEmpty ? myname : 'Steve',
-            style: const TextStyle(
-              color: Colors.black,
-              fontSize: 16,
+          CupertinoButton(
+            onPressed: () {
+              context.go('/name');
+            },
+            padding: EdgeInsets.zero,
+            child: Text(
+              myname.isNotEmpty ? myname : 'Steve',
+              style: const TextStyle(
+                color: Colors.black,
+                fontSize: 16,
+                fontFamily: 'SF',
+              ),
             ),
           ),
           const SizedBox(height: 84),
