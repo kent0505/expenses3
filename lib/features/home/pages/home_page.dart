@@ -53,6 +53,7 @@ class _Home extends StatefulWidget {
 }
 
 class _HomeState extends State<_Home> {
+  final scrollCtrl = ScrollController();
   int tabIndex = 0;
 
   void onTabPressed(String title) {
@@ -96,8 +97,10 @@ class _HomeState extends State<_Home> {
                 padding: const EdgeInsets.only(right: 7),
                 thumbColor: AppColors.main50,
                 radius: const Radius.circular(12),
+                controller: scrollCtrl,
                 thickness: 5,
                 child: ListView(
+                  controller: scrollCtrl,
                   children: [
                     const SizedBox(height: 8),
                     const TargetCard(),
