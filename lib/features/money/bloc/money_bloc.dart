@@ -16,6 +16,7 @@ class MoneyBloc extends Bloc<MoneyEvent, MoneyState> {
       if (_service.moneys.isEmpty) {
         _moneys = await _service.getMoneys();
         mymoneys = _moneys;
+        calculateMonthExpenses();
         await checkAchievements();
         emit(MoneysLoadedState(moneys: _moneys));
       } else {
@@ -25,9 +26,14 @@ class MoneyBloc extends Bloc<MoneyEvent, MoneyState> {
     });
 
     on<AddMoneyEvent>((event, emit) async {
-      _service.moneys.add(event.money);
+      if (event.money.important) {
+        _service.moneys.insert(0, event.money);
+      } else {
+        _service.moneys.add(event.money);
+      }
       _moneys = await _service.updateMoneys();
       mymoneys = _moneys;
+      calculateMonthExpenses();
       await checkAchievements();
       emit(MoneysLoadedState(moneys: _moneys));
     });
@@ -35,6 +41,12 @@ class MoneyBloc extends Bloc<MoneyEvent, MoneyState> {
     on<EditMoneyEvent>((event, emit) async {
       for (Money money in _service.moneys) {
         if (money.id == event.money.id) {
+          if (event.money.important && !money.important) {
+            _service.moneys.removeWhere(
+              (element) => element.id == event.money.id,
+            );
+            _service.moneys.insert(0, event.money);
+          }
           money.title = event.money.title;
           money.category = event.money.category;
           money.currency = event.money.currency;
@@ -42,8 +54,10 @@ class MoneyBloc extends Bloc<MoneyEvent, MoneyState> {
           money.important = event.money.important;
         }
       }
+
       _moneys = await _service.updateMoneys();
       mymoneys = _moneys;
+      calculateMonthExpenses();
       emit(MoneysLoadedState(moneys: _moneys));
     });
 
@@ -51,6 +65,7 @@ class MoneyBloc extends Bloc<MoneyEvent, MoneyState> {
       _service.moneys.removeWhere((element) => element.id == event.id);
       _moneys = await _service.updateMoneys();
       mymoneys = _moneys;
+      calculateMonthExpenses();
       emit(MoneysLoadedState(moneys: _moneys));
     });
   }

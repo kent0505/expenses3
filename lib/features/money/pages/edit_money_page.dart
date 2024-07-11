@@ -113,7 +113,7 @@ class _EditMoneyPageState extends State<EditMoneyPage> {
     controller2.text = widget.money.currency;
     controller3.text = widget.money.title;
     controller4.text = widget.money.amount.toString();
-    highlight = widget.money.profit;
+    highlight = widget.money.important;
   }
 
   @override
