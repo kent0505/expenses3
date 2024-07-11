@@ -40,7 +40,7 @@ class NewsPage extends StatelessWidget {
           Expanded(
             child: ListView(
               children: [
-                const SizedBox(height: 52),
+                // const SizedBox(height: 52),
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 15),
                   child: ClipRRect(
